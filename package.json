@@ -1,0 +1,25 @@
+{
+  "name": "@sumor/ssl-server",
+  "description": "An SSL web server for Expressjs support HTTP/2",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": "sumor-cloud/ssl-server",
+  "type": "module",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  },
+  "files": [
+    "lib",
+    "LICENSE",
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "test": "node -v && echo \"Error: no test specified\" && exit 1"
+  }
+}
