@@ -10,10 +10,14 @@
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "eslint-config-standard": "^17.1.0"
+    "eslint-config-standard": "^17.1.0",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "@jest/globals": "^29.7.0",
+    "jest-html-reporter": "^3.10.2"
   },
   "files": [
-    "lib",
+    "src",
     "LICENSE",
     "index.js"
   ],
@@ -23,6 +27,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "test": "node -v && echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
+    "prepare": "husky"
   }
 }

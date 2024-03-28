@@ -1,0 +1,26 @@
+{
+    "reporters": [
+      "default",
+      ["jest-html-reporter", {
+        "pageTitle": "Test Report",
+        "outputPath": "./output/unit/index.html"
+      }]
+    ],
+    "coverageDirectory":"output/coverage",
+    "coverageReporters": ["text-summary", "html"],
+    "collectCoverageFrom": ["src/**/*.{js,jsx}"],
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "output",
+      "static",
+      "dist",
+      "tmp"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "output",
+      "static",
+      "dist",
+      "tmp"
+    ]
+  }
