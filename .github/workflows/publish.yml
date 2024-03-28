@@ -21,6 +21,8 @@ jobs:
         run: npm run lint
       - name: Unit test with coverage using Jest
         run: npm test
+      - name: force failure
+        run: exit 1
   publish:
     needs: test
     runs-on: ubuntu-latest
