@@ -22,6 +22,7 @@ jobs:
       - name: Unit test with coverage using Jest
         run: npm test
   publish:
+    needs: test
     runs-on: ubuntu-latest
     strategy:
       matrix:
