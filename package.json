@@ -28,6 +28,10 @@
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
+    "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
+    "publish-release-patch": "npm version patch && npm run push-tag",
+    "publish-release-minor": "npm version minor && npm run push-tag",
+    "publish-release-major": "npm version major && npm run push-tag",
     "prepare": "husky"
   }
 }
