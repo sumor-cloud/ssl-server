@@ -5,6 +5,7 @@
   "license": "MIT",
   "repository": "sumor-cloud/ssl-server",
   "type": "module",
+  "main": "index.js",
   "dependencies": {
     "express": "^4.19.2",
     "fs-extra": "^11.2.0",
