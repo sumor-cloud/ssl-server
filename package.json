@@ -4,9 +4,12 @@
   "version": "1.0.9",
   "license": "MIT",
   "repository": "sumor-cloud/ssl-server",
+  "author": "Sumor Cloud Ltd",
+  "homepage": "https://www.sumor.com",
   "type": "module",
   "main": "./index.js",
   "exports": "./index.js",
+  "keywords": ["ssl", "express", "http/2"],
   "dependencies": {
     "express": "^4.19.2",
     "fs-extra": "^11.2.0",
