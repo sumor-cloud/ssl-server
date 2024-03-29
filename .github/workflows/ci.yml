@@ -1,8 +1,6 @@
-name: Continuous Publish
+name: Continuous Integration
 on:
-  - push:
-      tags:
-        - 'v*'
+  - push
 jobs:
   check:
     name: Code Quality Check
@@ -39,21 +37,3 @@ jobs:
         run: npm ci
       - name: Unit test with coverage using Jest
         run: npm test
-  publish:
-    name: Publish to NPM
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Install NPM dependencies
-        run: npm ci
-      - name: Publish to NPM
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
