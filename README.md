@@ -6,9 +6,10 @@ SSL Web Server with Express, Support HTTP/2
 npm i @sumor/ssl-server --save
 ```
 
-## Usage
+## Setup
 
-### require ES module
+### require Node.JS ES module
+As this package is written in ES module,
 please change the following code in your ```package.json``` file:
 ```json
 {
@@ -16,11 +17,7 @@ please change the following code in your ```package.json``` file:
 }
 ```
 
-### add SSL files
-Please add SSL files into root folder ```ssl``` with the following names:
-- ```domain.crt```
-- ```domain.key```
-- ```ca.crt```
+## Usage
 
 ### host a simple server
 
@@ -31,6 +28,15 @@ const app = createApp();
 // listen on port 443 by default, and redirect 80 to https 443
 await app.listen();
 ```
+
+
+### add SSL files
+Please add SSL files into root folder ```ssl``` with the following names:
+- ```domain.crt```
+- ```domain.key```
+- ```ca.crt```
+
+If not found, the server will generate a self-signed certificate.
 
 ## Features
 
