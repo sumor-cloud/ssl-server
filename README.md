@@ -9,8 +9,7 @@ npm i @sumor/ssl-server --save
 ## Prerequisites
 
 ### Node.JS version
-As Node.JS officially supports ES module since version 12.x,
-require Node.JS version 12.x or above
+Require Node.JS version 16.x or above
 
 ### require Node.JS ES module
 As this package is written in ES module,
