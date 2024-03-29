@@ -1,8 +1,8 @@
 name: Continuous Publish
 on:
-  - push:
-      tags:
-        - '*'
+  push:
+    tags:
+      - '*'
 jobs:
   publish:
     name: Publish to NPM
