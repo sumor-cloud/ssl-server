@@ -2,10 +2,11 @@ name: Continuous Publish
 on:
   - push:
       tags:
-        - 'v*'
+        - '*'
 jobs:
-  check:
-    name: Code Quality Check
+  publish:
+    name: Publish to NPM
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,38 +22,8 @@ jobs:
         run: npm run lint
       - name: Run NPM audit
         run: npm audit
-  test:
-    name: Unit Test
-    needs: check
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install NPM dependencies
-        run: npm ci
       - name: Unit test with coverage using Jest
         run: npm test
-  publish:
-    name: Publish to NPM
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Install NPM dependencies
-        run: npm ci
       - name: Publish to NPM
         run: npm publish --access public
         env:

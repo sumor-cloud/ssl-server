@@ -6,7 +6,11 @@ SSL Web Server with Express, Support HTTP/2
 npm i @sumor/ssl-server --save
 ```
 
-## Setup
+## Prerequisites
+
+### Node.JS version
+As Node.JS officially supports ES module since version 12.x,
+require Node.JS version 12.x or above
 
 ### require Node.JS ES module
 As this package is written in ES module,
