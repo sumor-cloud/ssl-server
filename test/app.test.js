@@ -2,12 +2,19 @@ import {
   describe, expect, it
 } from '@jest/globals'
 
-import App from '../index.js'
+import createApp from '../index.js'
 
 describe('Expose App', () => {
   it('Verify expose type', async () => {
-    expect(typeof App).toStrictEqual('function')
-    const app = new App()
-    expect(typeof app).toStrictEqual('object')
+    expect(typeof createApp).toStrictEqual('function')
+    const app = createApp()
+    expect(typeof app.listen).toStrictEqual('function')
+  })
+  it('Verify close function', async () => {
+    const app = createApp()
+    expect(typeof app.close).toStrictEqual('undefined')
+    await app.listen(10311)
+    expect(typeof app.close).toStrictEqual('function')
+    await app.close()
   })
 })

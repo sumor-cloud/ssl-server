@@ -7,3 +7,6 @@ node_modules/
 # tmp
 tmp/
 output/
+
+# runtime config
+ssl/
