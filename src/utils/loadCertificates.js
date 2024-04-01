@@ -12,17 +12,13 @@ export default async (callback) => {
 
     if (await fse.exists(`${sslPath}/domain.key`)) {
       certificates.key = await fse.readFile(`${sslPath}/domain.key`, 'utf-8')
-    } else if (await fse.exists(`${sslPath}/selfsigned.key`)) {
-      certificates.key = await fse.readFile(`${sslPath}/selfsigned.key`, 'utf-8')
     } else {
-      certificates.key = ''
+      certificates.key = await fse.readFile(`${sslPath}/selfsigned.key`, 'utf-8')
     }
     if (await fse.exists(`${sslPath}/domain.crt`)) {
       certificates.cert = await fse.readFile(`${sslPath}/domain.crt`, 'utf-8')
-    } else if (await fse.exists(`${sslPath}/selfsigned.crt`)) {
-      certificates.cert = await fse.readFile(`${sslPath}/selfsigned.crt`, 'utf-8')
     } else {
-      certificates.cert = ''
+      certificates.cert = await fse.readFile(`${sslPath}/selfsigned.crt`, 'utf-8')
     }
 
     if (await fse.exists(`${sslPath}/ca.crt`)) {

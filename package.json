@@ -42,7 +42,6 @@
   "scripts": {
     "lint": "eslint .",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
-    "test-app": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/app.test.js'",
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
     "push-tag": "git push --tags && git push",
     "publish-beta": "npm version prerelease --preid beta && npm run push-tag",

@@ -16,7 +16,7 @@
     }
   },
   "coverageDirectory":"output/coverage",
-  "coverageReporters": ["lcov","text-summary"],
+  "coverageReporters": ["text-summary", "html"],
   "collectCoverageFrom": ["src/**/*.{js,jsx}"],
   "testPathIgnorePatterns": [
     "node_modules",
