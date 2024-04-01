@@ -10,6 +10,7 @@ import loadCertificates from '../src/utils/loadCertificates.js'
 import fse from 'fs-extra'
 import cleanUpSSL from './utils/cleanUpSSL.js'
 import delay from '../src/utils/delay.js'
+import generateSelfSign from '../src/serve/generateSelfSign.js'
 
 describe('Utils', () => {
   it('check port is available', async () => {
@@ -27,6 +28,20 @@ describe('Utils', () => {
     const result = await checkPort(port)
     server.close()
     expect(result).toStrictEqual(false)
+  })
+  it('generate self signed certificate failed as exists', async () => {
+    const sslPath = `${process.cwd()}/ssl`
+    await fse.ensureDir(sslPath)
+    await fse.writeFile(`${sslPath}/domain.key`, 'key')
+    await fse.writeFile(`${sslPath}/domain.crt`, 'crt')
+    await generateSelfSign('localhost')
+
+    const key = await fse.readFile(`${sslPath}/domain.key`, 'utf-8')
+    const crt = await fse.readFile(`${sslPath}/domain.crt`, 'utf-8')
+    expect(key).toStrictEqual('key')
+    expect(crt).toStrictEqual('crt')
+
+    await cleanUpSSL()
   })
   it('load certificate', async () => {
     const sslPath = `${process.cwd()}/ssl`
