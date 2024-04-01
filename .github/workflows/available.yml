@@ -14,3 +14,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install NPM dependencies
         run: npm i @sumor/ssl-server
+      - name: Dependency Check
+        run: npm ls
+      - name: Audit
+        run: npm audit
