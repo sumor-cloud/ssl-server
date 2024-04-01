@@ -2,7 +2,7 @@
 SSL Web Server with Express, Support HTTP/2
 
 [![CI](https://github.com/sumor-cloud/ssl-server/actions/workflows/ci.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/ci.yml)
-[![Test](https://github.com/sumor-cloud/ssl-server/actions/workflows/test.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/test.yml)
+[![Test](https://github.com/sumor-cloud/ssl-server/actions/workflows/ut.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/ut.yml)
 [![Coverage](https://github.com/sumor-cloud/ssl-server/actions/workflows/coverage.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/coverage.yml)
 [![Audit](https://github.com/sumor-cloud/ssl-server/actions/workflows/audit.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/audit.yml)
 
