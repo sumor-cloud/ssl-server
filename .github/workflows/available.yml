@@ -3,7 +3,8 @@ on:
   schedule:
     - cron: '*/1 * * * *'
 jobs:
-  npm_audit:
+  install:
+    name: NPM Installation Test
     runs-on: ubuntu-latest
     steps:
       - name: Use Node.js
