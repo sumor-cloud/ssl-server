@@ -30,6 +30,7 @@ describe('Utils', () => {
   })
   it('load certificate', async () => {
     const sslPath = `${process.cwd()}/ssl`
+    await fse.ensureDir(sslPath)
     await fse.writeFile(`${sslPath}/domain.key`, 'key')
     await fse.writeFile(`${sslPath}/domain.crt`, 'crt')
     await fse.writeFile(`${sslPath}/ca.crt`, 'ca')
