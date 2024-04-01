@@ -8,9 +8,6 @@ export default async (app, options) => {
   const httpPort = options.httpPort || 80
   const closeHttps = await hostHttps(app, domain, httpsPort)
 
-  // const portString = httpsPort === 443 ? '' : `:${httpsPort}`;
-  // app.logger.info(`网页服务已启动，访问地址为https://${domain}${portString}`);
-
   let closeHttp
   try {
     closeHttp = await redirectHttp(httpPort, httpsPort)
@@ -23,6 +20,5 @@ export default async (app, options) => {
     if (closeHttp) {
       await closeHttp()
     }
-    // app.logger.info(`网页服务已停止运行`);
   }
 }

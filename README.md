@@ -1,9 +1,11 @@
 # ssl-server
 SSL Web Server with Express, Support HTTP/2
 
-[![Continuous Integration](https://github.com/sumor-cloud/ssl-server/actions/workflows/ci.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/ci.yml)
+[![CI](https://github.com/sumor-cloud/ssl-server/actions/workflows/ci.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/ci.yml)
+[![Test](https://github.com/sumor-cloud/ssl-server/actions/workflows/test.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/test.yml)
 [![Coverage](https://github.com/sumor-cloud/ssl-server/actions/workflows/coverage.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/coverage.yml)
 [![Audit](https://github.com/sumor-cloud/ssl-server/actions/workflows/audit.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/audit.yml)
+
 ## Installation
 ```bash
 npm i @sumor/ssl-server --save
@@ -25,7 +27,7 @@ please change the following code in your ```package.json``` file:
 
 ## Usage
 
-### host a simple server
+### Host a simple server
 
 ```javascript
 const createApp = require('@sumor/ssl-server');
@@ -36,19 +38,19 @@ await app.listen();
 ```
 
 
-### add SSL files
+### Add SSL files
 Please add SSL files into root folder ```ssl``` with the following names:
 - ```domain.crt```
 - ```domain.key```
 - ```ca.crt``` (Optional, It will append to the certificate chain)
 
-If not found, the server will generate a self-signed certificate.
-
+If not found, the server will generate a self-signed certificate.  
+If SSL files changed, it will auto-reload.
 ## Features
 
-### support all express features
+it supports all [express](https://www.npmjs.com/package/express) features, only difference is the ```listen``` and ```close``` method. Please refer below example for more details.
 
-### add middlewares and routes
+### Add middlewares and routes
 
 ```javascript
 const createApp = require('@sumor/ssl-server');
@@ -63,15 +65,18 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+// listen is async function
 await app.listen();
 ```
 
-### force close server
+### Force close server
 
 ```javascript
 const createApp = require('@sumor/ssl-server');
 const app = createApp();
 
+// listen is async function
 await app.listen();
+// close is async function
 await app.close();
 ```

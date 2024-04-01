@@ -1,10 +1,9 @@
 // port number prefix is 102
 
 import {
-  describe, expect, it, beforeAll
+  describe, expect, it, beforeAll, afterAll
 } from '@jest/globals'
 
-import fse from 'fs-extra'
 import axios from 'axios'
 import https from 'https'
 import express from 'express'
@@ -12,11 +11,14 @@ import hostHttps from '../src/serve/hostHttps.js'
 import redirectHttp from '../src/serve/redirectHttp.js'
 import serve from '../src/serve/index.js'
 import generateSelfSign from '../src/serve/generateSelfSign.js'
+import cleanUpSSL from './utils/cleanUpSSL.js'
 
 describe('Serve', () => {
   beforeAll(async () => {
-    const sslPath = `${process.cwd()}/ssl`
-    await fse.remove(sslPath)
+    await cleanUpSSL()
+  })
+  afterAll(async () => {
+    await cleanUpSSL()
   })
   it('host https', async () => {
     const domain = 'localhost'
@@ -76,7 +78,7 @@ describe('Serve', () => {
     app.get('/', (req, res) => {
       res.send('OK')
     })
-    const closer = await serve(app, {
+    const closeServer = await serve(app, {
       domain,
       httpsPort: port1,
       httpPort: port2
@@ -88,13 +90,13 @@ describe('Serve', () => {
     })
     expect(result.data).toStrictEqual('OK')
 
-    await closer()
+    await closeServer()
     await closeHttp()
   })
   it('serve', async () => {
     const domain = 'localhost'
-    const port1 = 10231
-    const port2 = 10232
+    const port1 = 10241
+    const port2 = 10242
 
     await generateSelfSign(domain)
 
@@ -102,7 +104,7 @@ describe('Serve', () => {
     app.get('/', (req, res) => {
       res.send('OK')
     })
-    const closer = await serve(app, {
+    const close = await serve(app, {
       httpsPort: port1,
       httpPort: port2
     })
@@ -112,6 +114,6 @@ describe('Serve', () => {
       })
     })
     expect(result.data).toStrictEqual('OK')
-    await closer()
+    await close()
   })
 })

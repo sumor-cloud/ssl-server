@@ -15,6 +15,7 @@
     "http/2"
   ],
   "dependencies": {
+    "chokidar": "^3.6.0",
     "express": "^4.19.2",
     "fs-extra": "^11.2.0",
     "selfsigned": "^2.4.1",
@@ -41,6 +42,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/*.test.js'",
+    "test-app": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testMatch='**/test/**/app.test.js'",
     "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --testMatch='**/test/**/*.test.js'",
     "push-tag": "git push --tags && git push",
     "publish-beta": "npm version prerelease --preid beta && npm run push-tag",
@@ -48,6 +50,6 @@
     "publish-release-minor": "npm version minor && npm run push-tag",
     "publish-release-major": "npm version major && npm run push-tag",
     "prepare": "husky",
-    "check": "eslint --fix . && npm audit fix && npm test"
+    "check": "eslint --fix . && npm audit fix --force && npm test"
   }
 }

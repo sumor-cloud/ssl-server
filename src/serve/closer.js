@@ -6,7 +6,7 @@ export default (server) => {
       sockets.splice(sockets.indexOf(socket), 1)
     })
   })
-  const closeServer = async () => await new Promise((resolve) => {
+  return () => new Promise((resolve) => {
     sockets.forEach((socket) => {
       socket.destroy()
     })
@@ -14,5 +14,4 @@ export default (server) => {
       resolve()
     })
   })
-  return closeServer
 }

@@ -5,6 +5,7 @@ export default (app) => {
   app = app || express()
   app.listen = async (port) => {
     app.close = await serve(app, {
+      domain: app.domain,
       httpsPort: port
     })
   }

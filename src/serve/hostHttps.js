@@ -2,6 +2,8 @@ import generateSelfSign from './generateSelfSign.js'
 import fse from 'fs-extra'
 import spdy from 'spdy'
 import closer from './closer.js'
+import loadCertificates from '../utils/loadCertificates.js'
+import tls from 'tls'
 
 export default async (app, domain, port = 443) => {
   if (!app.logger) {
@@ -15,27 +17,19 @@ export default async (app, domain, port = 443) => {
 
   const sslPath = `${process.cwd()}/ssl`
   if (!await fse.exists(`${sslPath}/domain.key`)) {
+    app.logger.info('未找到ssl/domain.key，将自动生成自签名证书')
     await generateSelfSign(domain, 'selfsigned')
   }
 
-  const ssl = {}
-  if (await fse.exists(`${sslPath}/domain.key`)) {
-    ssl.key = await fse.readFile(`${sslPath}/domain.key`)
-  } else {
-    ssl.key = await fse.readFile(`${sslPath}/selfsigned.key`)
-  }
-  if (await fse.exists(`${sslPath}/domain.crt`)) {
-    ssl.cert = await fse.readFile(`${sslPath}/domain.crt`)
-  } else {
-    ssl.cert = await fse.readFile(`${sslPath}/selfsigned.crt`)
-  }
-
-  if (await fse.exists(`${sslPath}/ca.crt`)) {
-    ssl.cert = ssl.cert + '\n' + await fse.readFile(`${sslPath}/ca.crt`)
-  }
+  let secureContext
+  const sslLoaderClose = await loadCertificates((certs) => {
+    secureContext = tls.createSecureContext(certs)
+  })
 
   const server = spdy.createServer({
-    ...ssl
+    SNICallback: (hostname, callback) => {
+      callback(null, secureContext)
+    }
   }, app)
 
   server.on('error', (e) => {
@@ -43,9 +37,16 @@ export default async (app, domain, port = 443) => {
   })
 
   // 启动https服务
-  return await new Promise((resolve) => {
+  await new Promise((resolve) => {
     server.listen(port, () => {
-      resolve(closer(server))
+      resolve()
     })
   })
+
+  const closeServer = closer(server)
+
+  return async () => {
+    await sslLoaderClose()
+    await closeServer()
+  }
 }
