@@ -30,6 +30,10 @@ export default async (app, domain, port = 443) => {
     ssl.cert = await fse.readFile(`${sslPath}/selfsigned.crt`)
   }
 
+  if (await fse.exists(`${sslPath}/ca.crt`)) {
+    ssl.cert = ssl.cert + '\n' + await fse.readFile(`${sslPath}/ca.crt`)
+  }
+
   const server = spdy.createServer({
     ...ssl
   }, app)

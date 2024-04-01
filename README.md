@@ -37,7 +37,7 @@ await app.listen();
 Please add SSL files into root folder ```ssl``` with the following names:
 - ```domain.crt```
 - ```domain.key```
-- ```ca.crt```
+- ```ca.crt``` (Optional, It will append to the certificate chain)
 
 If not found, the server will generate a self-signed certificate.
 
