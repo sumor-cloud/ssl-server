@@ -1,7 +1,7 @@
 // port number prefix is 102
 
 import {
-  describe, expect, it, beforeAll, afterAll
+  describe, expect, it, beforeEach, afterEach
 } from '@jest/globals'
 
 import axios from 'axios'
@@ -14,10 +14,10 @@ import generateSelfSign from '../src/serve/generateSelfSign.js'
 import cleanUpSSL from './utils/cleanUpSSL.js'
 
 describe('Serve', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await cleanUpSSL()
   })
-  afterAll(async () => {
+  afterEach(async () => {
     await cleanUpSSL()
   })
   it('host https', async () => {
