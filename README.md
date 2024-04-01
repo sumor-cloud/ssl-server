@@ -1,6 +1,9 @@
 # ssl-server
 SSL Web Server with Express, Support HTTP/2
 
+[![Continuous Integration](https://github.com/sumor-cloud/ssl-server/actions/workflows/ci.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/ci.yml)
+[![Coverage](https://github.com/sumor-cloud/ssl-server/actions/workflows/coverage.yml/badge.svg)](https://github.com/sumor-cloud/ssl-server/actions/workflows/coverage.yml)
+
 ## Installation
 ```bash
 npm i @sumor/ssl-server --save
