@@ -1,4 +1,4 @@
-name: NPM Installation Test
+name: Available
 on:
   schedule:
     - cron: '*/1 * * * *'
