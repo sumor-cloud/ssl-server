@@ -4,7 +4,6 @@ on:
 jobs:
   test:
     name: Unit Test
-    needs: check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
