@@ -3,6 +3,7 @@ import chokidar from 'chokidar'
 
 export default async (callback) => {
   const sslPath = `${process.cwd()}/ssl`
+  await fse.ensureDir(sslPath)
 
   const reload = async () => {
     const certificates = {
