@@ -1,5 +1,6 @@
 import fse from 'fs-extra'
 import chokidar from 'chokidar'
+import delay from './delay.js'
 
 export default async (callback) => {
   const sslPath = `${process.cwd()}/ssl`
@@ -17,7 +18,9 @@ export default async (callback) => {
       certificates.key = await fse.readFile(`${sslPath}/selfsigned.key`, 'utf-8')
     }
     if (await fse.exists(`${sslPath}/domain.crt`)) {
+      // console.log(`${sslPath}/domain.crt exists`)
       certificates.cert = await fse.readFile(`${sslPath}/domain.crt`, 'utf-8')
+      // console.log(`${sslPath}/domain.crt ${certificates.cert}`)
     } else {
       certificates.cert = await fse.readFile(`${sslPath}/selfsigned.crt`, 'utf-8')
     }
@@ -31,11 +34,16 @@ export default async (callback) => {
     }
   }
   await reload()
+  let closed = false
   const watcher = chokidar.watch(sslPath).on('all', async (event, path) => {
-    await reload()
+    await delay(100)
+    if (!closed) {
+      await reload()
+    }
   })
 
   return async function () {
+    closed = true
     await watcher.close()
   }
 }

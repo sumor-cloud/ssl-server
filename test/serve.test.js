@@ -93,7 +93,7 @@ describe('Serve', () => {
     await closeServer()
     await closeHttp()
   })
-  it('serve', async () => {
+  it('serve with http', async () => {
     const domain = 'localhost'
     const port1 = 10241
     const port2 = 10242
@@ -104,7 +104,7 @@ describe('Serve', () => {
     app.get('/', (req, res) => {
       res.send('OK')
     })
-    const close = await serve(app, {
+    const closeServer = await serve(app, {
       httpsPort: port1,
       httpPort: port2
     })
@@ -114,6 +114,6 @@ describe('Serve', () => {
       })
     })
     expect(result.data).toStrictEqual('OK')
-    await close()
+    await closeServer()
   })
 })
