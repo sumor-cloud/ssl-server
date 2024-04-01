@@ -35,5 +35,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install NPM dependencies
         run: npm ci
-      - name: Unit test with coverage using Jest
+      - name: Unit test using Jest
         run: npm test
