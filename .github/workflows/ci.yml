@@ -1,4 +1,5 @@
 name: CI
+description: Continuous Integration
 on:
   - push
 jobs:
@@ -15,6 +16,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install NPM dependencies
         run: npm ci
+      - name: Check dependencies size
+        run: du -sh node_modules
       - name: Syntax specification checking using ESLint
         run: npm run lint
       - name: Run NPM audit
@@ -35,5 +38,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install NPM dependencies
         run: npm ci
+      - name: Check dependencies size
+        run: du -sh node_modules
       - name: Unit test using Jest
         run: npm test

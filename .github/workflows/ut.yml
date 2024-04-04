@@ -1,4 +1,5 @@
 name: Test
+description: Unit Test for latest dependencies
 on:
   schedule:
     - cron: '0 * * * *'
@@ -16,5 +17,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install NPM dependencies
         run: npm ci
+      - name: Check dependencies size
+        run: du -sh node_modules
       - name: Unit test using Jest
         run: npm run test
