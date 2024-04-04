@@ -3,6 +3,8 @@ import serve from './src/serve/index.js'
 
 export default (app) => {
   app = app || express()
+  app.disable('x-powered-by')
+
   app.listen = async (port) => {
     app.close = await serve(app, {
       domain: app.domain,
