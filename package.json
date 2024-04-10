@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": "sumor-cloud/ssl-server",
   "author": "Sumor Cloud Ltd",
-  "homepage": "https://www.sumor.com",
+  "homepage": "https://sumor.cloud",
   "type": "module",
   "main": "./index.js",
   "exports": "./index.js",
