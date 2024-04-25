@@ -105,8 +105,8 @@ describe('Serve', () => {
       res.send('OK')
     })
     const closeServer = await serve(app, {
-      httpsPort: port1,
-      httpPort: port2
+      port: port1,
+      redirectPort: port2
     })
     const result = await axios.get(`http://${domain}:${port2}`, {
       httpsAgent: new https.Agent({
