@@ -12,7 +12,7 @@ export default async (app, options) => {
   try {
     closeHttp = await redirectHttp(httpPort, httpsPort)
   } catch (e) {
-    app.logger.error(`http服务无法启动，可能是端口${httpPort}被占用`)
+    app.logger.error(`http redirect server failed to start, maybe port ${httpPort} is already in use`)
   }
 
   return async () => {

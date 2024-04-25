@@ -17,7 +17,7 @@ export default async (app, domain, port = 443) => {
 
   const sslPath = `${process.cwd()}/ssl`
   if (!await fse.exists(`${sslPath}/domain.key`)) {
-    app.logger.info('未找到ssl/domain.key，将自动生成自签名证书')
+    app.logger.info('ssl/domain.key not found, will generate self-signed certificate')
     await generateSelfSign(domain, 'selfsigned')
   }
 

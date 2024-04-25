@@ -30,7 +30,7 @@ please change the following code in your ```package.json``` file:
 ### Host a simple server
 
 ```javascript
-const createApp = require('@sumor/ssl-server');
+import createApp from "@sumor/ssl-server";
 const app = createApp();
 
 // listen on port 443 by default, and redirect 80 to https 443
@@ -53,9 +53,9 @@ it supports all [express](https://www.npmjs.com/package/express) features, only 
 ### Add middlewares and routes
 
 ```javascript
-const createApp = require('@sumor/ssl-server');
+import createApp from "@sumor/ssl-server";
 const app = createApp();
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 
 // you can add any express middleware
 app.use(bodyParser);
@@ -72,7 +72,7 @@ await app.listen();
 ### Force close server
 
 ```javascript
-const createApp = require('@sumor/ssl-server');
+import createApp from "@sumor/ssl-server";
 const app = createApp();
 
 // listen is async function
