@@ -89,4 +89,6 @@ const app = createApp();
 
 // listen is async function
 await app.listen(8443, 8080);
+console.log(`Server is running on https://localhost:8443/`);
+console.log(`Redirect server is running on http://localhost:8080/`);
 ```
