@@ -85,11 +85,8 @@ await app.close();
 
 ```javascript
 import createApp from "@sumor/ssl-server";
-const app = createApp({
-    port: 8443,
-    redirectPort: 8080
-});
+const app = createApp();
 
 // listen is async function
-await app.listen();
+await app.listen(8443, 8080);
 ```

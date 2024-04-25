@@ -4,8 +4,8 @@ import redirectHttp from './redirectHttp.js'
 export default async (app, options) => {
   options = options || {}
   const domain = options.domain || 'localhost'
-  const httpsPort = options.httpsPort || options.port || 443
-  const httpPort = options.httpPort || options.redirectPort || 80
+  const httpsPort = options.httpsPort || 443
+  const httpPort = options.httpPort || 80
   const closeHttps = await hostHttps(app, domain, httpsPort)
 
   let closeHttp

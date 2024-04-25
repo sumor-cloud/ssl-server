@@ -5,10 +5,11 @@ export default (app) => {
   app = app || express()
   app.disable('x-powered-by')
 
-  app.listen = async (port) => {
+  app.listen = async (port, redirectPort) => {
     app.close = await serve(app, {
       domain: app.domain,
-      httpsPort: port
+      httpsPort: port,
+      httpPort: redirectPort
     })
   }
   return app
