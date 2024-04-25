@@ -58,7 +58,7 @@ const app = createApp();
 import bodyParser from 'body-parser';
 
 // you can add any express middleware
-app.use(bodyParser);
+app.use(bodyParser.json());
 
 // add routes
 app.get('/', (req, res) => {

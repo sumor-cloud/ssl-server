@@ -1,19 +1,17 @@
 import hostHttps from './hostHttps.js'
 import redirectHttp from './redirectHttp.js'
+import prepareOptions from './prepareOptions.js'
 
 export default async (app, options) => {
-  options = options || {}
-  const domain = options.domain || 'localhost'
-  const httpsPort = options.httpsPort || 443
-  const httpPort = options.httpPort || 80
-  const closeHttps = await hostHttps(app, domain, httpsPort)
+  options = prepareOptions(options)
+  const closeHttps = await hostHttps(app, options.domain, options.httpsPort)
 
   let closeHttp
-  if (httpPort !== null) {
+  if (options.httpPort !== null) {
     try {
-      closeHttp = await redirectHttp(httpPort, httpsPort)
+      closeHttp = await redirectHttp(options.httpPort, options.httpsPort)
     } catch (e) {
-      app.logger.error(`http redirect server failed to start, maybe port ${httpPort} is already in use`)
+      app.logger.error(`http redirect server failed to start, maybe port ${options.httpPort} is already in use`)
     }
   }
 

@@ -21,10 +21,11 @@ describe('Expose App', () => {
     const app = createApp()
     expect(typeof app.listen).toStrictEqual('function')
   })
-  it('Verify close function', async () => {
+  it('Verify close function and ping', async () => {
     const app = createApp()
     expect(typeof app.close).toStrictEqual('undefined')
-    await app.listen(10311)
+    await app.listen(10311, 10312)
+
     expect(typeof app.close).toStrictEqual('function')
     await app.close()
   })

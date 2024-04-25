@@ -5,7 +5,7 @@ import closer from './closer.js'
 import loadCertificates from '../utils/loadCertificates.js'
 import tls from 'tls'
 
-export default async (app, domain, port = 443) => {
+export default async (app, domain, port) => {
   if (!app.logger) {
     const types = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
     app.logger = {}

@@ -3,7 +3,9 @@ import serve from './src/serve/index.js'
 
 export default (app) => {
   app = app || express()
-  app.disable('x-powered-by')
+  if (app.disable) {
+    app.disable('x-powered-by')
+  }
 
   app.listen = async (port, redirectPort) => {
     app.close = await serve(app, {

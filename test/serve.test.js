@@ -4,14 +4,14 @@ import {
   describe, expect, it, beforeEach, afterEach
 } from '@jest/globals'
 
-import axios from 'axios'
-import https from 'https'
 import express from 'express'
 import hostHttps from '../src/serve/hostHttps.js'
 import redirectHttp from '../src/serve/redirectHttp.js'
 import serve from '../src/serve/index.js'
 import generateSelfSign from '../src/serve/generateSelfSign.js'
 import cleanUpSSL from './utils/cleanUpSSL.js'
+import httpCheck from './utils/httpCheck.js'
+import prepareOptions from '../src/serve/prepareOptions.js'
 
 describe('Serve', () => {
   beforeEach(async () => {
@@ -19,6 +19,12 @@ describe('Serve', () => {
   })
   afterEach(async () => {
     await cleanUpSSL()
+  })
+  it('prepareOptions', () => {
+    const options = prepareOptions()
+    expect(options.domain).toStrictEqual('localhost')
+    expect(options.httpsPort).toStrictEqual(443)
+    expect(options.httpPort).toStrictEqual(80)
   })
   it('host https', async () => {
     const domain = 'localhost'
@@ -29,12 +35,8 @@ describe('Serve', () => {
     })
     const closeHttps = await hostHttps(app, domain, port)
 
-    const result = await axios.get(`https://${domain}:${port}`, {
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
-    })
-    expect(result.data).toStrictEqual('OK')
+    const result = await httpCheck(`https://${domain}:${port}`)
+    expect(result).toStrictEqual('OK')
     await closeHttps()
   })
   it('redirect http to https', async () => {
@@ -47,20 +49,12 @@ describe('Serve', () => {
       res.send('OK')
     })
     const closeHttps = await hostHttps(app, domain, port1)
-    const result1 = await axios.get(`https://${domain}:${port1}`, {
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
-    })
-    expect(result1.data).toStrictEqual('OK')
+    const result1 = await httpCheck(`https://${domain}:${port1}`)
+    expect(result1).toStrictEqual('OK')
 
     const closeHttp = await redirectHttp(port2, port1)
-    const result2 = await axios.get(`http://${domain}:${port2}`, {
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
-    })
-    expect(result2.data).toStrictEqual('OK')
+    const result2 = await httpCheck(`http://${domain}:${port2}`)
+    expect(result2).toStrictEqual('OK')
 
     await closeHttps()
     await closeHttp()
@@ -83,12 +77,8 @@ describe('Serve', () => {
       httpsPort: port1,
       httpPort: port2
     })
-    const result = await axios.get(`http://${domain}:${port2}`, {
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
-    })
-    expect(result.data).toStrictEqual('OK')
+    const result = await httpCheck(`http://${domain}:${port2}`)
+    expect(result).toStrictEqual('OK')
 
     await closeServer()
     await closeHttp()
@@ -108,12 +98,9 @@ describe('Serve', () => {
       httpsPort: port1,
       httpPort: port2
     })
-    const result = await axios.get(`http://${domain}:${port2}`, {
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false
-      })
-    })
-    expect(result.data).toStrictEqual('OK')
+    const result = await httpCheck(`http://${domain}:${port2}`)
+    expect(result).toStrictEqual('OK')
+
     await closeServer()
   })
 })
