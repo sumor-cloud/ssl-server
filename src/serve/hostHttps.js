@@ -1,6 +1,6 @@
 import generateSelfSign from './generateSelfSign.js'
 import fse from 'fs-extra'
-import spdy from 'spdy'
+import https from 'https'
 import closer from './closer.js'
 import loadCertificates from '../utils/loadCertificates.js'
 import tls from 'tls'
@@ -26,7 +26,7 @@ export default async (app, domain, port) => {
     secureContext = tls.createSecureContext(certs)
   })
 
-  const server = spdy.createServer({
+  const server = https.createServer({
     SNICallback: (hostname, callback) => {
       callback(null, secureContext)
     }
