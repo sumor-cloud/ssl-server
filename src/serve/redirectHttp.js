@@ -10,12 +10,16 @@ export default async (httpPort, httpsPort) => {
     throw new Error(`Port ${httpPort} is not available`)
   }
   const server = http.createServer((req, res) => {
-    const domain = req.headers.host.split(':')[0]
-    const httpsPortString = httpsPort === 443 ? '' : `:${httpsPort}`
-    res.writeHead(301, {
-      Location: `https://${domain}${httpsPortString}${req.url}`
-    })
-    res.end()
+    try {
+      const domain = req.headers.host.split(':')[0]
+      const httpsPortString = httpsPort === 443 ? '' : `:${httpsPort}`
+      res.writeHead(301, {
+        Location: `https://${domain}${httpsPortString}${req.url}`
+      })
+      res.end()
+    } catch (e) {
+      res.end('Redirect Error')
+    }
   })
   return await new Promise((resolve) => {
     server.listen(httpPort, () => {
