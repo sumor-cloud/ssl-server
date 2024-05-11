@@ -70,4 +70,32 @@ describe('Utils', () => {
 
     await close()
   })
+
+  it('load certificate with cer suffix', async () => {
+    const sslPath = `${process.cwd()}/ssl`
+    await fse.ensureDir(sslPath)
+    await fse.writeFile(`${sslPath}/domain.key`, 'key')
+    await fse.writeFile(`${sslPath}/domain.cer`, 'cer')
+    await fse.writeFile(`${sslPath}/ca.cer`, 'ca')
+    await fse.writeFile(`${sslPath}/selfsigned.key`, 'selfsigned.key')
+    await fse.writeFile(`${sslPath}/selfsigned.crt`, 'selfsigned.crt')
+    let result = {}
+    const close = await loadCertificates((certs) => {
+      result = certs
+    })
+    expect(result.key).toStrictEqual('key')
+    expect(result.cert).toStrictEqual('cer\nca')
+
+    await fse.writeFile(`${sslPath}/domain.key`, 'key2')
+    await fse.writeFile(`${sslPath}/domain.cer`, 'cer2')
+    await fse.writeFile(`${sslPath}/ca.cer`, 'ca2')
+
+    await delay(300)
+    expect(result.key).toStrictEqual('key2')
+    expect(result.cert).toStrictEqual('cer2\nca2')
+
+    await cleanUpSSL()
+
+    await close()
+  })
 })
