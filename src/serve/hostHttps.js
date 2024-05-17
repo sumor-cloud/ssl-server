@@ -16,28 +16,31 @@ export default async (app, domain, port) => {
   }
 
   const sslPath = `${process.cwd()}/ssl`
-  if (!await fse.exists(`${sslPath}/domain.key`)) {
+  if (!(await fse.exists(`${sslPath}/domain.key`))) {
     app.logger.info('ssl/domain.key not found, will generate self-signed certificate')
     await generateSelfSign(domain, 'selfsigned')
   }
 
   let secureContext
-  const sslLoaderClose = await loadCertificates((certs) => {
+  const sslLoaderClose = await loadCertificates(certs => {
     secureContext = tls.createSecureContext(certs)
   })
 
-  const server = https.createServer({
-    SNICallback: (hostname, callback) => {
-      callback(null, secureContext)
-    }
-  }, app)
+  const server = https.createServer(
+    {
+      SNICallback: (hostname, callback) => {
+        callback(null, secureContext)
+      }
+    },
+    app
+  )
 
-  server.on('error', (e) => {
+  server.on('error', e => {
     app.logger.error(e)
   })
 
   // 启动https服务
-  await new Promise((resolve) => {
+  await new Promise(resolve => {
     server.listen(port, () => {
       resolve()
     })

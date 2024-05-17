@@ -21,7 +21,7 @@ export default async (httpPort, httpsPort) => {
       res.end('Redirect Error')
     }
   })
-  return await new Promise((resolve) => {
+  return await new Promise(resolve => {
     server.listen(httpPort, () => {
       resolve(closer(server))
     })

@@ -1,4 +1,4 @@
-export default (options) => {
+export default options => {
   options = options || {}
   options.domain = options.domain || 'localhost'
   options.httpsPort = options.httpsPort || 443

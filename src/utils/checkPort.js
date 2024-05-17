@@ -2,8 +2,8 @@
 
 import net from 'net'
 
-export default function checkPort (port) {
-  return new Promise((resolve) => {
+export default function checkPort(port) {
+  return new Promise(resolve => {
     const server = net.createServer()
     server.once('error', () => {
       // if (err.code === 'EADDRINUSE') {
@@ -17,4 +17,4 @@ export default function checkPort (port) {
     })
     server.listen(port)
   })
-};
+}

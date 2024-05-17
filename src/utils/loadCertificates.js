@@ -2,7 +2,7 @@ import fse from 'fs-extra'
 import chokidar from 'chokidar'
 import delay from './delay.js'
 
-export default async (callback) => {
+export default async callback => {
   const sslPath = `${process.cwd()}/ssl`
   await fse.ensureDir(sslPath)
 
@@ -26,9 +26,11 @@ export default async (callback) => {
     }
 
     if (await fse.exists(`${sslPath}/ca.crt`)) {
-      certificates.cert = certificates.cert + '\n' + await fse.readFile(`${sslPath}/ca.crt`, 'utf-8')
+      certificates.cert =
+        certificates.cert + '\n' + (await fse.readFile(`${sslPath}/ca.crt`, 'utf-8'))
     } else if (await fse.exists(`${sslPath}/ca.cer`)) {
-      certificates.cert = certificates.cert + '\n' + await fse.readFile(`${sslPath}/ca.cer`, 'utf-8')
+      certificates.cert =
+        certificates.cert + '\n' + (await fse.readFile(`${sslPath}/ca.cer`, 'utf-8'))
     }
 
     if (certificates.cert !== '' && certificates.key !== '') {

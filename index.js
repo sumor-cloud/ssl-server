@@ -1,7 +1,7 @@
 import express from 'express'
 import serve from './src/serve/index.js'
 
-export default (app) => {
+export default app => {
   app = app || express()
   if (app.disable) {
     app.disable('x-powered-by')

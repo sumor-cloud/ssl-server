@@ -1,8 +1,6 @@
 // port number prefix is 102
 
-import {
-  describe, expect, it, beforeEach, afterEach
-} from '@jest/globals'
+import { describe, expect, it, beforeEach, afterEach } from '@jest/globals'
 
 import express from 'express'
 import hostHttps from '../src/serve/hostHttps.js'

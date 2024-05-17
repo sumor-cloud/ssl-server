@@ -1,10 +1,6 @@
 // port number prefix is 103
 
-import {
-  afterEach,
-  beforeEach,
-  describe, expect, it
-} from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 
 import createApp from '../index.js'
 import cleanUpSSL from './utils/cleanUpSSL.js'

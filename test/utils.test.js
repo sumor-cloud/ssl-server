@@ -1,8 +1,6 @@
 // port number prefix is 101
 
-import {
-  describe, expect, it
-} from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 import http from 'http'
 import checkPort from '../src/utils/checkPort.js'
@@ -52,7 +50,7 @@ describe('Utils', () => {
     await fse.writeFile(`${sslPath}/selfsigned.key`, 'selfsigned.key')
     await fse.writeFile(`${sslPath}/selfsigned.crt`, 'selfsigned.crt')
     let result = {}
-    const close = await loadCertificates((certs) => {
+    const close = await loadCertificates(certs => {
       result = certs
     })
     expect(result.key).toStrictEqual('key')
@@ -80,7 +78,7 @@ describe('Utils', () => {
     await fse.writeFile(`${sslPath}/selfsigned.key`, 'selfsigned.key')
     await fse.writeFile(`${sslPath}/selfsigned.crt`, 'selfsigned.crt')
     let result = {}
-    const close = await loadCertificates((certs) => {
+    const close = await loadCertificates(certs => {
       result = certs
     })
     expect(result.key).toStrictEqual('key')

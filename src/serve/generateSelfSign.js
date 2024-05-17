@@ -1,7 +1,7 @@
 import selfsigned from 'selfsigned'
 import fse from 'fs-extra'
 
-export default async function generateSelfSign (domain, fileName) {
+export default async function generateSelfSign(domain, fileName) {
   fileName = fileName || 'domain'
 
   const sslPath = `${process.cwd()}/ssl`
@@ -14,4 +14,4 @@ export default async function generateSelfSign (domain, fileName) {
 
   await fse.writeFile(`${sslPath}/${fileName}.crt`, pems.cert)
   await fse.writeFile(`${sslPath}/${fileName}.key`, pems.private)
-};
+}

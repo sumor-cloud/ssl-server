@@ -11,7 +11,9 @@ export default async (app, options) => {
     try {
       closeHttp = await redirectHttp(options.httpPort, options.httpsPort)
     } catch (e) {
-      app.logger.error(`http redirect server failed to start, maybe port ${options.httpPort} is already in use`)
+      app.logger.error(
+        `http redirect server failed to start, maybe port ${options.httpPort} is already in use`
+      )
     }
   }
 
