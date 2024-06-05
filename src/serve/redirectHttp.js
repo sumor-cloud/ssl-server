@@ -3,11 +3,12 @@
 import http from 'http'
 import checkPort from '../utils/checkPort.js'
 import closer from './closer.js'
+import LibraryError from '../i18n/LibraryError.js'
 
 export default async (httpPort, httpsPort) => {
   const isPortAvailable = await checkPort(httpPort)
   if (!isPortAvailable) {
-    throw new Error(`Port ${httpPort} is not available`)
+    throw new LibraryError('REDIRECT_PORT_NOT_AVAILABLE', { port: httpPort })
   }
   const server = http.createServer((req, res) => {
     try {

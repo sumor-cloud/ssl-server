@@ -4,20 +4,13 @@ import https from 'https'
 import closer from './closer.js'
 import loadCertificates from '../utils/loadCertificates.js'
 import tls from 'tls'
+import getLogger from '../i18n/libraryLogger.js'
 
 export default async (app, domain, port) => {
-  if (!app.logger) {
-    const types = ['trace', 'debug', 'info', 'warn', 'error', 'fatal']
-    app.logger = {}
-    for (let i = 0; i < types.length; i += 1) {
-      const type = types[i]
-      app.logger[type] = console[type] || console.log
-    }
-  }
-
+  const logger = getLogger()
   const sslPath = `${process.cwd()}/ssl`
   if (!(await fse.exists(`${sslPath}/domain.key`))) {
-    app.logger.info('ssl/domain.key not found, will generate self-signed certificate')
+    logger.code('SELF_SIGN_CERT_GENERATED')
     await generateSelfSign(domain, 'selfsigned')
   }
 
@@ -36,7 +29,7 @@ export default async (app, domain, port) => {
   )
 
   server.on('error', e => {
-    app.logger.error(e)
+    logger.error(e)
   })
 
   // 启动https服务

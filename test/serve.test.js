@@ -10,7 +10,6 @@ import generateSelfSign from '../src/serve/generateSelfSign.js'
 import cleanUpSSL from './utils/cleanUpSSL.js'
 import httpCheck from './utils/httpCheck.js'
 import prepareOptions from '../src/serve/prepareOptions.js'
-
 describe('Serve', () => {
   beforeEach(async () => {
     await cleanUpSSL()

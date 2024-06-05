@@ -15,6 +15,8 @@
     "https"
   ],
   "dependencies": {
+    "@sumor/error": "^1.0.4",
+    "@sumor/logger": "^1.2.7",
     "chokidar": "^3.6.0",
     "express": "^4.19.2",
     "fs-extra": "^11.2.0",
@@ -52,6 +54,6 @@
     "publish-release-minor": "npm version minor && npm run push-tag",
     "publish-release-major": "npm version major && npm run push-tag",
     "prepare": "husky",
-    "check": "eslint --fix . && prettier --write . && npm audit fix --force && npm run coverage"
+    "check": "npm run autofix && npm run coverage"
   }
 }
