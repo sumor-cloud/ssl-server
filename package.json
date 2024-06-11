@@ -1,7 +1,7 @@
 {
   "name": "@sumor/ssl-server",
   "description": "An SSL web server for Expressjs easily support HTTPS",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "license": "MIT",
   "repository": "sumor-cloud/ssl-server",
   "author": "Sumor Cloud Ltd",
