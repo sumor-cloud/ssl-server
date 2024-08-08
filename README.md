@@ -41,8 +41,10 @@ please change the following code in your `package.json` file:
 import createApp from '@sumor/ssl-server'
 const app = createApp()
 
-// listen on port 443 by default, and redirect 80 to https 443
+// listen on port 443 by default if not specified, and redirect 80 to https 443
 await app.listen()
+
+console.log('Server running at https://localhost:443/')
 ```
 
 ### Add SSL files
@@ -101,4 +103,25 @@ const app = createApp()
 await app.listen(8443, 8080)
 console.log(`Server is running on https://localhost:8443/`)
 console.log(`Redirect server is running on http://localhost:8080/`)
+```
+
+### Use custom app
+By default, ssl server will use latest express long term support version. You can use your own express app by passing it to `createApp` function.
+
+```javascript
+import createApp from '@sumor/ssl-server'
+import express from 'express'
+
+const expressApp = express()
+expressApp.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+const app = createApp(expressApp)
+
+// listen is async function
+await app.listen()
+
+console.log('Server running at https://localhost:443/')
+
 ```
