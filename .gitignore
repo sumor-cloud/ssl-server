@@ -1,5 +1,6 @@
 # IDE configuration
 .idea/
+.vscode/
 
 # dependencies
 node_modules/

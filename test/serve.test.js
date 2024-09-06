@@ -100,4 +100,22 @@ describe('Serve', () => {
 
     await closeServer()
   })
+  it('serve only http', async () => {
+    const domain = 'localhost'
+    const port = 10252
+
+    await generateSelfSign(domain)
+
+    const app = express()
+    app.get('/', (req, res) => {
+      res.send('OK')
+    })
+    const closeServer = await serve(app, {
+      httpPort: port
+    })
+    const result = await httpCheck(`http://${domain}:${port}`)
+    expect(result).toStrictEqual('OK')
+
+    await closeServer()
+  })
 })

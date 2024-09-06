@@ -105,7 +105,19 @@ console.log(`Server is running on https://localhost:8443/`)
 console.log(`Redirect server is running on http://localhost:8080/`)
 ```
 
+### Listen only http
+
+```javascript
+import createApp from '@sumor/ssl-server'
+const app = createApp()
+
+// listen is async function
+await app.listen(null, 8080)
+console.log(`Redirect server is running on http://localhost:8080/`)
+```
+
 ### Use custom app
+
 By default, ssl server will use latest express long term support version. You can use your own express app by passing it to `createApp` function.
 
 ```javascript
@@ -123,5 +135,4 @@ const app = createApp(expressApp)
 await app.listen()
 
 console.log('Server running at https://localhost:443/')
-
 ```
