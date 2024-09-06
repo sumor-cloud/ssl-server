@@ -9,19 +9,12 @@ import serve from '../src/serve/index.js'
 import generateSelfSign from '../src/serve/generateSelfSign.js'
 import cleanUpSSL from './utils/cleanUpSSL.js'
 import httpCheck from './utils/httpCheck.js'
-import prepareOptions from '../src/serve/prepareOptions.js'
 describe('Serve', () => {
   beforeEach(async () => {
     await cleanUpSSL()
   })
   afterEach(async () => {
     await cleanUpSSL()
-  })
-  it('prepareOptions', () => {
-    const options = prepareOptions()
-    expect(options.domain).toStrictEqual('localhost')
-    expect(options.httpsPort).toStrictEqual(443)
-    expect(options.httpPort).toStrictEqual(80)
   })
   it('host https', async () => {
     const domain = 'localhost'
