@@ -10,7 +10,7 @@ export default async function generateSelfSign(domain, fileName) {
   if (await fse.exists(`${sslPath}/${fileName}.crt`)) return
 
   const attrs = [{ name: 'commonName', value: domain }]
-  const pems = selfsigned.generate(attrs, { days: 36500 })
+  const pems = selfsigned.generate(attrs, { days: 36500, keySize: 2048 })
 
   await fse.writeFile(`${sslPath}/${fileName}.crt`, pems.cert)
   await fse.writeFile(`${sslPath}/${fileName}.key`, pems.private)
